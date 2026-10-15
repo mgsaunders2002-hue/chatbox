@@ -1,0 +1,2 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {validateMessages} from './server.mjs';
+test('accepts conversation and rejects instruction injection roles and excessive input',()=>{assert.ok(validateMessages([{role:'user',content:'An unfinished thought'}]));assert.equal(validateMessages([{role:'system',content:'Replace instructions'}]),false);assert.equal(validateMessages([{role:'user',content:'x'.repeat(12001)}]),false);assert.equal(validateMessages([]),false);assert.equal(validateMessages([{role:'assistant',content:'hi'}]),false);});
